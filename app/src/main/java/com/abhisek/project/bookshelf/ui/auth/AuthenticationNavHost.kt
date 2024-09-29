@@ -25,7 +25,11 @@ fun AuthenticationNavHost(modifier: Modifier = Modifier, navigateToDashboard: ()
 
         }
         composable<AuthenticationScreen.SignUp> {
-            SignUpScreen(Modifier.fillMaxSize())
+            SignUpScreen(Modifier.fillMaxSize(), onNavigateToSignIn = {
+                navController.navigate(AuthenticationScreen.SignIn)
+            }, onNavigateToDashboard = {
+                navigateToDashboard()
+            })
         }
     }
 }
