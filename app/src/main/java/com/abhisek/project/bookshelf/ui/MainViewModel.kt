@@ -26,7 +26,7 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             val isAuthenticated = isAuthenticatedUsecase.invoke()
             if(isAuthenticated) {
-                _uiEffect.emit(MainEffect.NavigateToHome)
+                _uiEffect.emit(MainEffect.NavigateToDashboard)
             } else {
                 _uiEffect.emit(MainEffect.NavigateToAuthentication)
             }
@@ -35,7 +35,7 @@ class MainViewModel @Inject constructor(
 }
 
 sealed class MainEffect {
-    data object NavigateToHome : MainEffect()
+    data object NavigateToDashboard : MainEffect()
 
     data object NavigateToAuthentication : MainEffect()
 }
