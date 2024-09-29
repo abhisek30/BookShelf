@@ -25,7 +25,7 @@ class MainViewModel @Inject constructor(
     private fun checkIsAuthenticated() {
         viewModelScope.launch(Dispatchers.IO) {
             val isAuthenticated = isAuthenticatedUsecase.invoke()
-            if(isAuthenticated.not()) {
+            if(isAuthenticated) {
                 _uiEffect.emit(MainEffect.NavigateToHome)
             } else {
                 _uiEffect.emit(MainEffect.NavigateToAuthentication)

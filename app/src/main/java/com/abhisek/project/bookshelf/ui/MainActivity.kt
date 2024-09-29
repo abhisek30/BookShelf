@@ -1,5 +1,6 @@
 package com.abhisek.project.bookshelf.ui
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -13,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.abhisek.project.bookshelf.ui.auth.AuthenticationActivity
 import com.abhisek.project.bookshelf.ui.theme.BookShelfTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -32,6 +34,8 @@ class MainActivity : ComponentActivity() {
                         is MainEffect.NavigateToHome -> {
                         }
                         is MainEffect.NavigateToAuthentication -> {
+                            startActivity(Intent(this@MainActivity,AuthenticationActivity::class.java))
+                            finish()
                         }
                     }
                 }.collect()
