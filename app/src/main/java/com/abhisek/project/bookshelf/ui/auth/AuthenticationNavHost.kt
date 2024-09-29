@@ -7,6 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.abhisek.project.bookshelf.ui.auth.dashboard.DashboardScreen
+import com.abhisek.project.bookshelf.ui.auth.signup.SignUpScreen
 import kotlinx.serialization.Serializable
 
 @Composable
@@ -24,7 +25,7 @@ fun AuthenticationNavHost(modifier: Modifier = Modifier, navigateToDashboard: ()
 
         }
         composable<AuthenticationScreen.SignUp> {
-
+            SignUpScreen(Modifier.fillMaxSize())
         }
     }
 }

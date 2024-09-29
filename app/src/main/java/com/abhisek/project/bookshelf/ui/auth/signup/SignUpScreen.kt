@@ -15,10 +15,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.abhisek.project.bookshelf.ui.theme.BookShelfTheme
 
 @Composable
 fun SignUpScreen(modifier: Modifier = Modifier) {
+    val viewModel = hiltViewModel<SignUpViewModel>()
     val email = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
     Column(
