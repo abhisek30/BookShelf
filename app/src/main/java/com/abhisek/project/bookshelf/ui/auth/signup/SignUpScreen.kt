@@ -1,5 +1,6 @@
 package com.abhisek.project.bookshelf.ui.auth.signup
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -7,11 +8,13 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -46,10 +49,14 @@ fun SignUpScreen(
         }.collect()
     }
 
-    uiState.value.countries?.let {
+    uiState.value.countries?.let { countryList ->
         val email = remember { mutableStateOf("") }
         val password = remember { mutableStateOf("") }
         val passwordError = remember { mutableStateOf("") }
+        val index = countryList.indexOfFirst { it.country == uiState.value.currentCountry?.country }
+        val itemPosition = remember {
+            mutableIntStateOf(if (index == -1) 0 else index)
+        }
         Column(
             modifier = modifier, verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
@@ -84,6 +91,7 @@ fun SignUpScreen(
                     }
                 }
             )
+            CountryListDropDown(Modifier.padding(vertical = 8.dp), itemPosition, countryList)
             Button(onClick = {
                 if (passwordError.value.isBlank()) {
                     viewModel.validateUser(User(email.value, password.value))
@@ -94,9 +102,19 @@ fun SignUpScreen(
             Text(
                 text = "Existing User? Please Sign-In",
                 style = TextStyle.Default,
-                modifier = Modifier.padding(top = 8.dp).clickable {
-                    onNavigateToSignIn()
-                })
+                modifier = Modifier
+                    .padding(top = 8.dp)
+                    .clickable {
+                        onNavigateToSignIn()
+                    })
+        }
+    } ?: run {
+        Column(
+            modifier = modifier,
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            CircularProgressIndicator()
         }
     }
 }
