@@ -1,14 +1,12 @@
 package com.abhisek.project.bookshelf.ui.dashboard
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Text
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.abhisek.project.bookshelf.ui.auth.AuthenticationActivity
 import com.abhisek.project.bookshelf.ui.theme.BookShelfTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -18,13 +16,13 @@ class DashboardActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             BookShelfTheme {
-                Column(
+                DashboardScreen(
                     modifier = Modifier.fillMaxSize(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    Text(text = "Dashboard")
-                }
+                    onNavigateToAuthentication = {
+                        startActivity(Intent(this@DashboardActivity, AuthenticationActivity::class.java))
+                        finish()
+                    }
+                )
             }
         }
     }

@@ -87,4 +87,7 @@ dependencies {
     implementation(libs.androidx.datastore.preferences)
     annotationProcessor(libs.androidx.room.compiler)
     ksp(libs.androidx.room.compiler)
+    implementation(libs.coil)
+    implementation(libs.accompanist.pager)
+    implementation(libs.accompanist.pager.indicators)
 }
